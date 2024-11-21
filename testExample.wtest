@@ -1,9 +1,26 @@
-import example.pepita
+import example.*
 
-describe "group of tests for pepita" {
+describe "Tests para ventas" {
 
-  test "pepita has initial energy" {
-    assert.equals(100, pepita.energy())
+  const thom = new Empleado()
+  const jonny = new Cliente()
+  const collin = new Cliente()
+
+  const bigben = new PH(metros = 30, ambientes = 4, operacion = alquiler, zona = londres)
+  const londres = new Zona(adicional = 10000)
+
+  const radiohead = new Alquiler(inmueble = bigben, meses = 12)
+
+  test "no se puede vender un inmueble reservado para otro" {
+    thom.reservarInmueble(radiohead, jonny)
+    thom.concretarOperacion(radiohead, collin)
+    assert.equals([], thom.operacionesCerradas())
+  }
+
+  test "se concreta venta" {
+    thom.reservarInmueble(radiohead, jonny)
+    thom.concretarOperacion(radiohead, jonny)
+    assert.equals(1, thom.operacionesCerradas().size())
   }
 
 }
